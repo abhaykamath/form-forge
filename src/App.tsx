@@ -1,4 +1,5 @@
 import { ThemeProvider } from "./contexts/ThemeProvider";
+import Preview from "./features/form-preview/Preview";
 import { ThemeToggle } from "./features/ModeToggle";
 
 const App = () => {
@@ -7,6 +8,10 @@ const App = () => {
       <div className="w-[100dvw] relative">
         <div>
           <ThemeToggle />
+        </div>
+        <div>
+          {/* Form preview */}
+          <Preview />
         </div>
       </div>
     </ThemeProvider>
