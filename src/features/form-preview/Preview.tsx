@@ -4,12 +4,18 @@ import PENT_Input from "./PENT_Input";
 import Select_Input from "./Select_Input";
 import Checkbox_Input from "./Checkbox_Input";
 import RadioGroup_Input from "./RadioGroup_Input";
-import { FormData } from "@/types/types";
+import { FormData, T_FieldsOrder, T_FormConfig } from "@/types/types";
 import { usePreviewStore } from "@/stores/PreviewStore";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export default function Preview() {
-  const formFieldsConfig = usePreviewStore((state) => state.formFieldsConfig);
-  const formFieldsOrder = usePreviewStore((state) => state.formFieldsOrder);
+  const [animationParent] = useAutoAnimate();
+  const savedFieldsOrder: T_FieldsOrder = usePreviewStore(
+    (state) => state.savedFieldsOrder
+  );
+  const savedFormConfig: T_FormConfig = usePreviewStore(
+    (state) => state.savedFormConfig
+  );
   const {
     register,
     handleSubmit,
@@ -28,11 +34,12 @@ export default function Preview() {
 
   return (
     <form
+      ref={animationParent}
       onSubmit={handleSubmit(onSubmit)}
       className="border w-full max-w-xl flex flex-col gap-6 items-center m-auto py-8 rounded-md"
     >
-      {formFieldsOrder.map((id) => {
-        const fieldConfig = formFieldsConfig[id];
+      {savedFieldsOrder.map((id) => {
+        const fieldConfig = savedFormConfig[id];
         switch (fieldConfig.type) {
           case "password":
           case "email":

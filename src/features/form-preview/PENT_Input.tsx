@@ -16,6 +16,7 @@ const PENT_Input = ({ field, register, errors }: PENT_Input_Props) => {
         {...register(field.name, field.validation)}
         type={field.type}
         placeholder={field.placeholder}
+        className="-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
       />
       {errors[field.name] && (
         <p className="text-sm text-red-700">

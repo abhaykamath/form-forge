@@ -1,25 +1,27 @@
 import { create } from "zustand";
-import { InitialFieldConfig, InitialFieldOrder } from "./InitialFieldConfig";
-import { FieldConfig } from "@/types/types";
+import { savedFieldsOrder, savedFormConfig } from "./SavedConfig";
+import { FieldConfig, T_FieldsOrder, T_FormConfig } from "@/types/types";
 
 type FormState = {
-  formFieldsConfig: Record<string, FieldConfig>;
-  formFieldsOrder: string[];
-  updateField: (id: string, updates: Partial<FieldConfig>) => void;
-  resetFields: () => void;
+  savedFieldsOrder: T_FieldsOrder;
+  savedFormConfig: T_FormConfig;
+  updateSavedFormConfig: (id: string, updates: FieldConfig) => any;
+  updateSavedFieldsOrder: (updatedOrder: T_FieldsOrder) => void;
 };
 
-const initialFieldConfig: Record<string, FieldConfig> = InitialFieldConfig;
-const initialFieldOrder: string[] = InitialFieldOrder;
+const Inital_savedFieldsOrder: T_FieldsOrder = savedFieldsOrder;
+const Initial_savedFormConfig: T_FormConfig = savedFormConfig;
 
 export const usePreviewStore = create<FormState>((set) => ({
-  formFieldsConfig: initialFieldConfig,
-  formFieldsOrder: initialFieldOrder,
-  updateField: (id, updates) =>
+  savedFieldsOrder: Inital_savedFieldsOrder,
+  savedFormConfig: Initial_savedFormConfig,
+  updateSavedFormConfig: (id: string, updates: FieldConfig) =>
     set((state) => {
-      const updated = { ...state.formFieldsConfig };
+      const updated = { ...state.savedFormConfig };
       updated[id] = { ...updated[id], ...updates };
-      return { formFieldsConfig: updated };
+      return { savedFormConfig: updated };
     }),
-  resetFields: () => set({ formFieldsConfig: initialFieldConfig }),
+  updateSavedFieldsOrder: (updatedOrder: T_FieldsOrder) => {
+    set(() => ({ savedFieldsOrder: updatedOrder }));
+  },
 }));

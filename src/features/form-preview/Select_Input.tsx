@@ -4,7 +4,7 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
+  // SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -31,11 +31,11 @@ const Select_Input = ({ field, control, errors }: Select_Input_Props) => {
             value={controllerField.value}
           >
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select a fruit" />
+              <SelectValue placeholder="Select an option" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>{field.label}</SelectLabel>
+                {/* <SelectLabel>{field.label}</SelectLabel> */}
                 {field.options?.map((option) => (
                   <SelectItem key={option} value={option}>
                     {option}

@@ -19,6 +19,9 @@ export interface FieldConfig {
   validation?: any; // dynamic validation schema for each field
 }
 
-export interface FormData {
+export interface FormData extends FieldConfig {
   [key: string]: any;
 }
+
+export type T_FieldsOrder = string[];
+export type T_FormConfig = Record<string, FieldConfig>;

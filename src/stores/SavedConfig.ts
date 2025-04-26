@@ -1,6 +1,6 @@
-import { FieldConfig } from "@/types/types";
+import { T_FieldsOrder, T_FormConfig } from "@/types/types";
 
-export const InitialFieldOrder: string[] = [
+export const savedFieldsOrder: T_FieldsOrder = [
   "fb052ba7-f5cc-4c87-8932-9de43c8afd76",
   "670d2abe-de3c-4010-aecd-9b0bb4c1bf55",
   "335ba0ac-5680-4ec1-8ad5-25905fd00b31",
@@ -10,7 +10,7 @@ export const InitialFieldOrder: string[] = [
   "4249d4dd-aea5-4d77-97fe-289aec69ef4b",
 ];
 
-export const InitialFieldConfig: Record<string, FieldConfig> = {
+export const savedFormConfig: T_FormConfig = {
   "fb052ba7-f5cc-4c87-8932-9de43c8afd76": {
     id: "fb052ba7-f5cc-4c87-8932-9de43c8afd76",
     type: "text",
