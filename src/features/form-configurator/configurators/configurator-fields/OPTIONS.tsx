@@ -11,7 +11,7 @@ const OPTIONS = ({
   errors: any;
 }) => {
   return (
-    <div className="flex flex-col items-start gap-1.5">
+    <div className="col-span-2 flex flex-col items-start gap-1.5">
       <Label>Set the options</Label>
       <Input
         {...register(name, {
@@ -22,6 +22,7 @@ const OPTIONS = ({
               "Options must be separated by semicolons (e.g., option1;option2;option3)",
           },
         })}
+        spellCheck={false}
         type="text"
         placeholder="e.g., option1;option2;option3"
       />

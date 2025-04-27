@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { v4 as uuid } from "uuid";
 import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 import { FieldConfig } from "@/types/types";
+import { usePreviewStore } from "@/stores/PreviewStore";
 
 function EmailButton() {
   const unsavedFieldsOrder = useConfiguratorStore(
@@ -9,6 +10,9 @@ function EmailButton() {
   );
   const addFieldToUnsavedFormConfig = useConfiguratorStore(
     (state) => state.addFieldToUnsavedFormConfig
+  );
+  const addFieldToSavedFormConfig = usePreviewStore(
+    (state) => state.addFieldToSavedFormConfig
   );
 
   return (
@@ -30,6 +34,7 @@ function EmailButton() {
           },
         };
         addFieldToUnsavedFormConfig(id, fieldConfig);
+        addFieldToSavedFormConfig(id, fieldConfig);
       }}
     >
       Email

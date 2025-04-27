@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 
 import NAME from "./configurator-fields/NAME";
 import LABEL from "./configurator-fields/LABEL";
-import { Grip } from "lucide-react";
+import { Grip, Save, Trash2 } from "lucide-react";
 import OPTIONS from "./configurator-fields/OPTIONS";
 import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 
@@ -85,11 +85,11 @@ const Configurator__Checkbox = ({
         </div>
         <div className="flex-1">
           <AccordionTrigger className="p-2 hover:cursor-pointer">
-            Checkbox
+            Checkbox - {fieldConfig.name}
           </AccordionTrigger>
           <AccordionContent className="border-t pb-0">
             <form className="" onSubmit={handleSubmit(onSubmit)}>
-              <div className="p-2 flex flex-wrap gap-2 border-b">
+              <div className="p-2 grid grid-cols-2 flex-wrap gap-2 border-b">
                 <NAME register={register} errors={errors} />
                 <LABEL register={register} />
                 <OPTIONS
@@ -99,8 +99,17 @@ const Configurator__Checkbox = ({
                 />
               </div>
               <div className="p-2 flex justify-end gap-2">
-                <Button type="button">edit</Button>
-                <Button type="submit">save</Button>
+                <Button disabled type="button" className="flex items-center">
+                  <Trash2 />
+                  <span>Remove Field</span>
+                </Button>
+                <Button
+                  type="submit"
+                  className="flex items-center hover:cursor-pointer"
+                >
+                  <Save />
+                  <span>Save</span>
+                </Button>
               </div>
             </form>
           </AccordionContent>

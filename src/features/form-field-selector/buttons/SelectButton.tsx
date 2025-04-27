@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { v4 as uuid } from "uuid";
 import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 import { FieldConfig } from "@/types/types";
+import { usePreviewStore } from "@/stores/PreviewStore";
 
 function SelectButton() {
   const unsavedFieldsOrder = useConfiguratorStore(
@@ -9,6 +10,9 @@ function SelectButton() {
   );
   const addFieldToUnsavedFormConfig = useConfiguratorStore(
     (state) => state.addFieldToUnsavedFormConfig
+  );
+  const addFieldToSavedFormConfig = usePreviewStore(
+    (state) => state.addFieldToSavedFormConfig
   );
 
   return (
@@ -27,6 +31,7 @@ function SelectButton() {
           },
         };
         addFieldToUnsavedFormConfig(id, fieldConfig);
+        addFieldToSavedFormConfig(id, fieldConfig);
       }}
     >
       Dropdown (Select)

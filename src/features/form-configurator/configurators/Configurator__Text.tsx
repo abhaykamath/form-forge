@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import NAME from "./configurator-fields/NAME";
 import LABEL from "./configurator-fields/LABEL";
 import PLACEHOLDER from "./configurator-fields/PLACEHOLDER";
-import { Grip } from "lucide-react";
+import { Grip, Save, Trash2 } from "lucide-react";
 import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 
 interface Configurator__Text_Props {
@@ -57,7 +57,7 @@ const Configurator__Text = ({
   });
 
   const onSubmit = (data: FormData) => {
-    // updateSavedFormConfig(id, { ...data, validation });
+    updateSavedFormConfig(id, { ...data, validation });
     updateUnsavedFormConfig(id, { ...data, validation });
   };
 
@@ -77,18 +77,27 @@ const Configurator__Text = ({
         </div>
         <div className="flex-1">
           <AccordionTrigger className="p-2 hover:cursor-pointer">
-            Text
+            Text - {fieldConfig.label || fieldConfig.name}
           </AccordionTrigger>
           <AccordionContent className="border-t pb-0">
             <form className="" onSubmit={handleSubmit(onSubmit)}>
-              <div className="p-2 flex gap-2 border-b">
+              <div className="p-2 grid grid-cols-2 gap-2 border-b">
                 <NAME register={register} errors={errors} />
                 <LABEL register={register} />
                 <PLACEHOLDER register={register} />
               </div>
               <div className="p-2 flex justify-end gap-2">
-                <Button type="button">edit</Button>
-                <Button type="submit">save</Button>
+                <Button disabled type="button" className="flex items-center">
+                  <Trash2 />
+                  <span>Remove Field</span>
+                </Button>
+                <Button
+                  type="submit"
+                  className="flex items-center hover:cursor-pointer"
+                >
+                  <Save />
+                  <span>Save</span>
+                </Button>
               </div>
             </form>
           </AccordionContent>

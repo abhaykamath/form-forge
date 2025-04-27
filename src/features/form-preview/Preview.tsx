@@ -31,7 +31,6 @@ export default function Preview() {
 
   // Removes stale field names in the form
   useEffect(() => {
-    console.log(savedFormConfig);
     const registeredNames = Object.keys(getValues());
     const actualNames = Object.values(savedFormConfig).map((obj) => obj.name);
     const staleNames = registeredNames.filter(
