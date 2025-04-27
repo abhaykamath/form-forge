@@ -7,6 +7,7 @@ type FormState = {
   savedFormConfig: T_FormConfig;
   updateSavedFormConfig: (id: string, updates: FieldConfig) => any;
   updateSavedFieldsOrder: (updatedOrder: T_FieldsOrder) => void;
+  syncPreview: (newOrder: T_FieldsOrder, newFormConfig: T_FormConfig) => void;
 };
 
 const Inital_savedFieldsOrder: T_FieldsOrder = savedFieldsOrder;
@@ -23,5 +24,13 @@ export const usePreviewStore = create<FormState>((set) => ({
     }),
   updateSavedFieldsOrder: (updatedOrder: T_FieldsOrder) => {
     set(() => ({ savedFieldsOrder: updatedOrder }));
+  },
+  syncPreview: (newOrder, newFormConfig) => {
+    set(() => {
+      return {
+        savedFieldsOrder: [...newOrder],
+        savedFormConfig: { ...newFormConfig },
+      };
+    });
   },
 }));

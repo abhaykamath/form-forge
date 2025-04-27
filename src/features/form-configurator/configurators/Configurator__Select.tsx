@@ -13,6 +13,7 @@ import NAME from "./configurator-fields/NAME";
 import LABEL from "./configurator-fields/LABEL";
 import { Grip } from "lucide-react";
 import OPTIONS from "./configurator-fields/OPTIONS";
+import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 
 interface Configurator__Select_Props {
   index: number;
@@ -36,6 +37,9 @@ const Configurator__Select = ({
   const updateSavedFormConfig = usePreviewStore(
     (state) => state.updateSavedFormConfig
   );
+  const updateUnsavedFormConfig = useConfiguratorStore(
+    (state) => state.updateUnsavedFormConfig
+  );
   const validation = {
     required: "Please select atleast 1 option",
   };
@@ -44,6 +48,7 @@ const Configurator__Select = ({
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
+    mode: "onChange",
     defaultValues: {
       label: fieldConfig.label || "",
       name: fieldConfig.name || "",
@@ -53,6 +58,11 @@ const Configurator__Select = ({
 
   const onSubmit = (data: FormData) => {
     updateSavedFormConfig(id, {
+      ...data,
+      options: data["select-options"].split(";"),
+      validation,
+    });
+    updateUnsavedFormConfig(id, {
       ...data,
       options: data["select-options"].split(";"),
       validation,

@@ -20,9 +20,7 @@ const ConfiguratorPanel = () => {
   const unsavedFormConfig = useConfiguratorStore(
     (state) => state.unsavedFormConfig
   );
-  const updateSavedFieldsOrder = usePreviewStore(
-    (state) => state.updateSavedFieldsOrder
-  );
+  const syncPreview = usePreviewStore((state) => state.syncPreview);
   return (
     <div className="border w-full max-w-xl flex flex-col items-center m-auto rounded-md">
       <header className="w-full p-2 text-center border-b">
@@ -160,10 +158,10 @@ const ConfiguratorPanel = () => {
       <footer className="w-full p-2 flex justify-center border-t">
         <Button
           onClick={() => {
-            updateSavedFieldsOrder(unsavedFieldsOrder);
+            syncPreview(unsavedFieldsOrder, unsavedFormConfig);
           }}
         >
-          Save
+          Sync Preview
         </Button>
       </footer>
     </div>

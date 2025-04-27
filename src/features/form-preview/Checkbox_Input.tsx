@@ -11,7 +11,7 @@ interface Checkbox_Input_Props {
 
 const Checkbox_Input = ({ field, control, errors }: Checkbox_Input_Props) => {
   return (
-    <div  className="grid w-full max-w-sm items-center gap-1.5">
+    <div className="grid w-full max-w-sm items-center gap-1.5">
       <Label>{field.label}</Label>
       <div>
         {field.options?.map((option) => (
@@ -23,16 +23,27 @@ const Checkbox_Input = ({ field, control, errors }: Checkbox_Input_Props) => {
             render={({ field: controllerField }) => {
               const isChecked = (controllerField.value ?? []).includes(option);
               const handleChange = (checked: boolean) => {
+                const currentValue = controllerField.value ?? [];
                 if (checked) {
-                  controllerField.onChange([...controllerField.value, option]);
+                  controllerField.onChange([...currentValue, option]);
                 } else {
                   controllerField.onChange(
-                    controllerField.value.filter(
-                      (val: string) => val !== option
-                    )
+                    currentValue.filter((val: string) => val !== option)
                   );
                 }
               };
+              // OLD LOGIC
+              // const handleChange = (checked: boolean) => {
+              //   if (checked) {
+              //     controllerField.onChange([...controllerField.value, option]);
+              //   } else {
+              //     controllerField.onChange(
+              //       controllerField.value.filter(
+              //         (val: string) => val !== option
+              //       )
+              //     );
+              //   }
+              // };
 
               return (
                 <div className="w-full flex items-center space-x-2">

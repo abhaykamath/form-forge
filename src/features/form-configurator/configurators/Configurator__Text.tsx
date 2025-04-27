@@ -13,6 +13,7 @@ import NAME from "./configurator-fields/NAME";
 import LABEL from "./configurator-fields/LABEL";
 import PLACEHOLDER from "./configurator-fields/PLACEHOLDER";
 import { Grip } from "lucide-react";
+import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 
 interface Configurator__Text_Props {
   index: number;
@@ -36,6 +37,9 @@ const Configurator__Text = ({
   const updateSavedFormConfig = usePreviewStore(
     (state) => state.updateSavedFormConfig
   );
+  const updateUnsavedFormConfig = useConfiguratorStore(
+    (state) => state.updateUnsavedFormConfig
+  );
   const validation = {
     required: "This field is required",
   };
@@ -44,6 +48,7 @@ const Configurator__Text = ({
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
+    mode: "onChange",
     defaultValues: {
       label: fieldConfig.label || "",
       name: fieldConfig.name || "",
@@ -52,7 +57,8 @@ const Configurator__Text = ({
   });
 
   const onSubmit = (data: FormData) => {
-    updateSavedFormConfig(id, { ...data, validation });
+    // updateSavedFormConfig(id, { ...data, validation });
+    updateUnsavedFormConfig(id, { ...data, validation });
   };
 
   return (
@@ -70,7 +76,9 @@ const Configurator__Text = ({
           <Grip />
         </div>
         <div className="flex-1">
-          <AccordionTrigger className="p-2 hover:cursor-pointer">Text</AccordionTrigger>
+          <AccordionTrigger className="p-2 hover:cursor-pointer">
+            Text
+          </AccordionTrigger>
           <AccordionContent className="border-t pb-0">
             <form className="" onSubmit={handleSubmit(onSubmit)}>
               <div className="p-2 flex gap-2 border-b">

@@ -7,7 +7,7 @@ export function ThemeToggle() {
   const { setTheme } = useTheme();
 
   return (
-    <div className="p-5 flex justify-center items-center relative">
+    <div className="p-5 flex justify-center items-center absolute right-2">
       <Button
         variant="outline"
         size="icon"

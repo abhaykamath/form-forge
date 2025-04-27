@@ -13,6 +13,7 @@ import NAME from "./configurator-fields/NAME";
 import LABEL from "./configurator-fields/LABEL";
 import { Grip } from "lucide-react";
 import OPTIONS from "./configurator-fields/OPTIONS";
+import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 
 interface Configurator__Radio_Props {
   index: number;
@@ -36,6 +37,9 @@ const Configurator__Radio = ({
   const updateSavedFormConfig = usePreviewStore(
     (state) => state.updateSavedFormConfig
   );
+  const updateUnsavedFormConfig = useConfiguratorStore(
+    (state) => state.updateUnsavedFormConfig
+  );
   const validation = {
     required: "Please select atleast 1 option",
   };
@@ -44,6 +48,7 @@ const Configurator__Radio = ({
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
+    mode: "onChange",
     defaultValues: {
       label: fieldConfig.label || "",
       name: fieldConfig.name || "",
@@ -53,6 +58,11 @@ const Configurator__Radio = ({
 
   const onSubmit = (data: FormData) => {
     updateSavedFormConfig(id, {
+      ...data,
+      options: data["radio-options"].split(";"),
+      validation,
+    });
+    updateUnsavedFormConfig(id, {
       ...data,
       options: data["radio-options"].split(";"),
       validation,
@@ -74,7 +84,9 @@ const Configurator__Radio = ({
           <Grip />
         </div>
         <div className="flex-1">
-          <AccordionTrigger className="p-2 hover:cursor-pointer">Radio Group</AccordionTrigger>
+          <AccordionTrigger className="p-2 hover:cursor-pointer">
+            Radio Group
+          </AccordionTrigger>
           <AccordionContent className="border-t pb-0">
             <form className="" onSubmit={handleSubmit(onSubmit)}>
               <div className="p-2 flex flex-wrap gap-2 border-b">
