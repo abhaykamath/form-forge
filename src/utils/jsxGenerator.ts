@@ -1,94 +1,116 @@
-import { T_FormConfig } from "@/types/types";
+import { FieldConfig } from "@/types/types";
 
-export function generateRHFJSX(config: T_FormConfig) {
+export function generateRHFJSX(config: Record<string, FieldConfig>) {
   const fieldEntries = Object.values(config);
 
-  const fieldsJSX = fieldEntries.map((field) => {
-    const { type, label, name, placeholder, options, validation } = field;
-
-    const registerString = validation
-      ? ` {...register("${name}", ${JSON.stringify(validation, null, 2)})}`
-      : ` {...register("${name}")}`;
-
-    switch (type) {
-      case "text":
-      case "email":
-      case "password":
-      case "number":
-        return `
-  <label>${label}
-    <input
-      type="${type}"
-      placeholder="${placeholder || ""}"
-      ${registerString}
-    />
-  </label>
-  `;
-
-      case "select":
-        return `
-  <label>${label}
-    <select ${registerString}>
-      ${options
-        ?.map((opt) => `<option value="${opt}">${opt}</option>`)
-        .join("\n    ")}
-    </select>
-  </label>
-  `;
-
-      case "radio":
-        return `
-  <fieldset>
-    <legend>${label}</legend>
-    ${options
-      ?.map(
-        (opt) => `
-    <label>
-      <input
-        type="radio"
-        value="${opt}"
-        ${registerString}
-        name="${name}"
-      />
-      ${opt}
-    </label>
-    `
-      )
-      .join("\n")}
-  </fieldset>
-  `;
-
-      case "checkbox":
-        return `
-  <fieldset>
-    <legend>${label}</legend>
-    ${options
-      ?.map(
-        (opt) => `
-    <label>
-      <input
-        type="checkbox"
-        value="${opt}"
-        ${registerString}
-        name="${name}"
-      />
-      ${opt}
-    </label>
-    `
-      )
-      .join("\n")}
-  </fieldset>
-  `;
-
-      default:
-        return `<!-- Unsupported field type: ${type} -->`;
-    }
-  });
-
   return `
-  <form onSubmit={handleSubmit(onSubmit)}>
-  ${fieldsJSX.join("\n")}
-    <button type="submit">Submit</button>
-  </form>
-  `;
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
+export default function GeneratedForm() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
+  console.log(errors);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+${
+  Array.isArray(fieldEntries) ? ReduceFieldEntries(fieldEntries) : ""
+}      <input type="submit" />
+    </form>
+  );
+}
+`;
+}
+
+
+function ReduceFieldEntries(fieldEntries: FieldConfig[]) {
+  return fieldEntries.reduce((acc, { type, name, placeholder, options, validation, label }) => {
+    const { required, max, min, maxLength, minLength, pattern } = validation || {};
+    const extractValue = (rule: any) => {
+      if (typeof rule === 'object' && rule !== null && 'value' in rule) {
+        return rule.value;
+      }
+      return rule;
+    };
+    const buildValidationAttributes = () => {
+      const validations: string[] = [];
+      if (required) validations.push(`required: ${JSON.stringify(required)}`);
+      if (max) validations.push(`max: ${extractValue(max)}`);
+      if (min) validations.push(`min: ${extractValue(min)}`);
+      if (minLength) validations.push(`minLength: ${extractValue(minLength)}`);
+      if (maxLength) validations.push(`maxLength: ${extractValue(maxLength)}`);
+      if (pattern) {
+        const patternVal = extractValue(pattern);
+        validations.push(`pattern: ${patternVal instanceof RegExp ? patternVal : `/${patternVal}/i`}`);
+      }
+      return validations.length
+        ? `("${name}", { ${validations.join(", ")} })`
+        : `("${name}")`;
+    };
+    const registerString = `{...register${buildValidationAttributes()}}`;
+    if (type === "select") {
+      return acc + SelectCode(options, label, registerString)
+    }
+    if (type === "radio") {
+      return (
+        acc + RadioCode(options, label, registerString)
+      );
+    }
+    if (type === "checkbox") {
+      return acc + CheckboxCode(options, label, registerString)
+    }
+    return acc + TextCode(type, placeholder, label, registerString)
+  }, "")
+}
+
+function TextCode(
+  type: string,
+  placeholder: string | undefined,
+  label: string,
+  registerString: string
+) {
+  return (
+    `      //-----${type.toLocaleUpperCase()}: ${label}-----\n` +
+    `      <label>${label}</label>\n` +
+    `      <input type="${type}" placeholder="${placeholder || ""}" ${registerString} />\n`
+  );
+}
+
+function RadioCode(
+  options: string[] | undefined,
+  label: string,
+  registerString: string
+) {
+  return (
+    `      //-----Radio Group: ${label}-----\n` +
+    `      <label>${label}</label>\n` +
+    `${(options || []).map((option) => `      <input ${registerString} type="radio" value="${option}" />\n`).join("")}`
+  );
+}
+
+function CheckboxCode(
+  options: string[] | undefined,
+  label: string,
+  registerString: string
+) {
+  return (
+    `      //-----Checkbox: ${label}-----\n` +
+    `      <label>${label}</label>\n` +
+    `${(options || []).map(option => `      <input ${registerString} type="checkbox" value="${option}" />\n`).join("")}`
+  );
+}
+
+function SelectCode(
+  options: string[] | undefined,
+  label: string,
+  registerString: string
+) {
+  return (
+    `      //-----Select: ${label}-----\n` +
+    `      <label>${label}</label>\n` +
+    `      <select ${registerString}>` +
+    `${(options || []).map(option => `        <option value="${option}">${option}</option>`).join("\n")}\n` +
+    `      </select>\n`
+  );
 }

@@ -4,14 +4,20 @@ import ConfiguratorPanel from "./features/form-configurator/ConfiguratorPanel";
 import FieldSelectorTab from "./features/form-field-selector/FieldSelectorTab";
 import Preview from "./features/form-preview/Preview";
 import { ThemeToggle } from "./features/ModeToggle";
+import { useOutputSotre } from "./stores/OutputStore";
+import { generateRHFJSX } from "./utils/jsxGenerator";
+import { PreviewJSX } from "./features/jsx-output/PreviewJSX";
+import { usePreviewStore } from "./stores/PreviewStore";
 
 const App = () => {
+  const FormData = useOutputSotre((state) => state.FormData);
+  const savedFormConfig = usePreviewStore((state) => state.savedFormConfig);
+
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="w-full">
         {/* App Container */}
-        <div className="w-full max-w-5xl h-full m-auto">
-          {/* Navbar */}
+        <div className="w-full max-w-5xl h-full m-auto relative">
           <nav className="w-full flex justify-between p-4">
             <div>
               <div className="text-4xl font-extrabold">FORM FORGE</div>
@@ -21,7 +27,6 @@ const App = () => {
               <ThemeToggle />
             </div>
           </nav>
-          {/* Main - Interactive Space */}
           <main className="p-4 grid grid-cols-12 gap-4">
             {/* Input Options */}
             <div className="col-span-4 border-2 rounded-xl shadow-lg">
@@ -37,7 +42,15 @@ const App = () => {
             </div>
             {/* Form Data */}
             <div className="h-fit col-span-5 border-2 rounded-xl shadow-lg">
-              <div className="w-full p-4">Form Data</div>
+              <div className="w-full p-4">
+                <pre>{JSON.stringify(FormData, null, 2)}</pre>
+              </div>
+            </div>
+            {/* Form Data */}
+            <div className="h-fit col-span-12 border-2 rounded-xl shadow-lg">
+              <div className="w-full p-4">
+                <PreviewJSX code={generateRHFJSX(savedFormConfig)} />
+              </div>
             </div>
             {/* Special Thanks */}
             <div className="h-fit col-span-12 border-2 border-purple-200 rounded-xl shadow-lg bg-purple-100 dark:border-accent dark:bg-background">
