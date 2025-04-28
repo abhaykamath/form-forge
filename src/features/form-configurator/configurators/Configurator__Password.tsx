@@ -40,6 +40,12 @@ const Configurator__Password = ({
   const updateUnsavedFormConfig = useConfiguratorStore(
     (state) => state.updateUnsavedFormConfig
   );
+  const deleteFieldFromUnsaved = useConfiguratorStore(
+    (state) => state.deleteFieldFromUnsaved
+  );
+  const deleteFieldFromSaved = usePreviewStore(
+    (state) => state.deleteFieldFromSaved
+  );
   const validation = {
     required: "Password is required",
     minLength: { value: 6, message: "Minimum 6 characters" },
@@ -62,6 +68,11 @@ const Configurator__Password = ({
     updateUnsavedFormConfig(id, { ...data, validation });
   };
 
+  const onDelete = () => {
+    deleteFieldFromUnsaved(id);
+    deleteFieldFromSaved(id);
+  };
+
   return (
     <AccordionItem
       value={`item-${index + 1}`}
@@ -76,7 +87,7 @@ const Configurator__Password = ({
         >
           <Grip />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 border-r">
           <AccordionTrigger className="p-2 hover:cursor-pointer">
             Password - {fieldConfig.name}
           </AccordionTrigger>
@@ -88,10 +99,6 @@ const Configurator__Password = ({
                 <PLACEHOLDER register={register} />
               </div>
               <div className="p-2 flex justify-end gap-2">
-                <Button disabled type="button" className="flex items-center">
-                  <Trash2 />
-                  <span>Remove Field</span>
-                </Button>
                 <Button
                   type="submit"
                   className="flex items-center hover:cursor-pointer"
@@ -102,6 +109,16 @@ const Configurator__Password = ({
               </div>
             </form>
           </AccordionContent>
+        </div>
+        <div className="p-1 flex justify-center items-start">
+          <Button
+            variant="destructive"
+            type="button"
+            className="flex items-center w-8 h-8 hover:cursor-pointer"
+            onClick={onDelete}
+          >
+            <Trash2 />
+          </Button>
         </div>
       </div>
     </AccordionItem>

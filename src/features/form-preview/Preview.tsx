@@ -99,8 +99,9 @@ export default function Preview() {
             return null;
         }
       })}
-
-      <Button type="submit">Submit</Button>
+      <Button disabled={savedFieldsOrder.length < 1} type="submit">
+        Submit
+      </Button>
     </form>
   );
 }

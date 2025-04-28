@@ -6,6 +6,7 @@ type FormState = {
   savedFieldsOrder: T_FieldsOrder;
   savedFormConfig: T_FormConfig;
   addFieldToSavedFormConfig: (id: string, fieldConfig: FieldConfig) => void;
+  deleteFieldFromSaved: (idToDelete: string) => void;
   updateSavedFormConfig: (id: string, updates: FieldConfig) => any;
   updateSavedFieldsOrder: (updatedOrder: T_FieldsOrder) => void;
   syncPreview: (newOrder: T_FieldsOrder, newFormConfig: T_FormConfig) => void;
@@ -24,6 +25,22 @@ export const usePreviewStore = create<FormState>((set) => ({
       return {
         savedFieldsOrder: [...updatedOrder, id],
         savedFormConfig: { ...updatedConfig, [id]: fieldConfig },
+      };
+    });
+  },
+  deleteFieldFromSaved: (idToDelete) => {
+    set((state) => {
+      if (!state.savedFieldsOrder.includes(idToDelete)) return state;
+      const updatedOrder: T_FieldsOrder = state.savedFieldsOrder.filter(
+        (id) => id !== idToDelete
+      );
+      const updatedConfig = updatedOrder.reduce((acc, id) => {
+        acc[id] = { ...state.savedFormConfig[id] };
+        return acc;
+      }, {} as T_FormConfig);
+      return {
+        savedFieldsOrder: [...updatedOrder],
+        savedFormConfig: { ...updatedConfig },
       };
     });
   },

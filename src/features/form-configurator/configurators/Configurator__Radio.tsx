@@ -40,6 +40,12 @@ const Configurator__Radio = ({
   const updateUnsavedFormConfig = useConfiguratorStore(
     (state) => state.updateUnsavedFormConfig
   );
+  const deleteFieldFromUnsaved = useConfiguratorStore(
+    (state) => state.deleteFieldFromUnsaved
+  );
+  const deleteFieldFromSaved = usePreviewStore(
+    (state) => state.deleteFieldFromSaved
+  );
   const validation = {
     required: "Please select atleast 1 option",
   };
@@ -69,6 +75,11 @@ const Configurator__Radio = ({
     });
   };
 
+  const onDelete = () => {
+    deleteFieldFromUnsaved(id);
+    deleteFieldFromSaved(id);
+  };
+
   return (
     <AccordionItem
       ref={setNodeRef}
@@ -83,7 +94,7 @@ const Configurator__Radio = ({
         >
           <Grip />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 border-r">
           <AccordionTrigger className="p-2 hover:cursor-pointer">
             Radio Group - {fieldConfig.name}
           </AccordionTrigger>
@@ -99,10 +110,6 @@ const Configurator__Radio = ({
                 />
               </div>
               <div className="p-2 flex justify-end gap-2">
-                <Button disabled type="button" className="flex items-center">
-                  <Trash2 />
-                  <span>Remove Field</span>
-                </Button>
                 <Button
                   type="submit"
                   className="flex items-center hover:cursor-pointer"
@@ -113,6 +120,16 @@ const Configurator__Radio = ({
               </div>
             </form>
           </AccordionContent>
+        </div>
+        <div className="p-1 flex justify-center items-start">
+          <Button
+            variant="destructive"
+            type="button"
+            className="flex items-center w-8 h-8 hover:cursor-pointer"
+            onClick={onDelete}
+          >
+            <Trash2 />
+          </Button>
         </div>
       </div>
     </AccordionItem>

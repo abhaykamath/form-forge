@@ -6,6 +6,7 @@ type ConfiguratorState = {
   unsavedFieldsOrder: T_FieldsOrder;
   unsavedFormConfig: T_FormConfig;
   addFieldToUnsavedFormConfig: (id: string, fieldConfig: FieldConfig) => void;
+  deleteFieldFromUnsaved: (idToDelete: string) => void;
   updateUnsavedFormConfig: (id: string, updated: FieldConfig) => void;
   updateUnsavedFieldsOrder: (updatedOrder: T_FieldsOrder) => void;
 };
@@ -23,6 +24,22 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
       return {
         unsavedFieldsOrder: [...updatedOrder, id],
         unsavedFormConfig: { ...updatedConfig, [id]: fieldConfig },
+      };
+    });
+  },
+  deleteFieldFromUnsaved: (idToDelete) => {
+    set((state) => {
+      if (!state.unsavedFieldsOrder.includes(idToDelete)) return state;
+      const updatedOrder: T_FieldsOrder = state.unsavedFieldsOrder.filter(
+        (id) => id !== idToDelete
+      );
+      const updatedConfig = updatedOrder.reduce((acc, id) => {
+        acc[id] = { ...state.unsavedFormConfig[id] };
+        return acc;
+      }, {} as T_FormConfig);
+      return {
+        unsavedFieldsOrder: [...updatedOrder],
+        unsavedFormConfig: { ...updatedConfig },
       };
     });
   },
