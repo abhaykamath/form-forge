@@ -1,6 +1,6 @@
 import { T_FormConfig } from "@/types/types";
 
-function generateRHFJSX(config: T_FormConfig) {
+export function generateRHFJSX(config: T_FormConfig) {
   const fieldEntries = Object.values(config);
 
   const fieldsJSX = fieldEntries.map((field) => {

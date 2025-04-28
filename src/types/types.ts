@@ -2,7 +2,7 @@
  * Doesn't include individual component prop types
  * They can be found at the top of each component file*/
 
-export interface FieldConfig {
+export interface FieldConfig extends Record<string, any> {
   id: string;
   type:
     | "text"
