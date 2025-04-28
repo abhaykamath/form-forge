@@ -13,7 +13,7 @@ export default function GeneratedForm() {
   console.log(errors);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit = { handleSubmit(onSubmit) }>
 ${
   Array.isArray(fieldEntries) ? ReduceFieldEntries(fieldEntries) : ""
 }      <input type="submit" />
@@ -71,7 +71,7 @@ function TextCode(
   registerString: string
 ) {
   return (
-    `      //-----${type.toLocaleUpperCase()}: ${label}-----\n` +
+    `      {/*-----${type.toLocaleUpperCase()}: ${label}----*/}\n` +
     `      <label>${label}</label>\n` +
     `      <input type="${type}" placeholder="${placeholder || ""}" ${registerString} />\n`
   );
@@ -83,7 +83,7 @@ function RadioCode(
   registerString: string
 ) {
   return (
-    `      //-----Radio Group: ${label}-----\n` +
+    `      {/*-----Radio Group: ${label}-----*/}\n` +
     `      <label>${label}</label>\n` +
     `${(options || []).map((option) => `      <input ${registerString} type="radio" value="${option}" />\n`).join("")}`
   );
@@ -95,7 +95,7 @@ function CheckboxCode(
   registerString: string
 ) {
   return (
-    `      //-----Checkbox: ${label}-----\n` +
+    `      {/*-----Checkbox: ${label}-----*/}\n` +
     `      <label>${label}</label>\n` +
     `${(options || []).map(option => `      <input ${registerString} type="checkbox" value="${option}" />\n`).join("")}`
   );
@@ -107,9 +107,9 @@ function SelectCode(
   registerString: string
 ) {
   return (
-    `      //-----Select: ${label}-----\n` +
+    `      {/*-----Select: ${label}-----*/}\n` +
     `      <label>${label}</label>\n` +
-    `      <select ${registerString}>` +
+    `      <select ${registerString}>\n` +
     `${(options || []).map(option => `        <option value="${option}">${option}</option>`).join("\n")}\n` +
     `      </select>\n`
   );

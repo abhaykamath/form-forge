@@ -27,134 +27,138 @@ const ConfiguratorPanel = () => {
         Configuration Panel
       </header>
       {/* Configurators List */}
-      <section className="w-full flex flex-col gap-2">
-        <DnDContextWrapper>
-          <SortableContextWrapper>
-            <Accordion
-              type="single"
-              collapsible
-              className="w-full border rounded-md"
-            >
-              {unsavedFieldsOrder.map((id, index) => {
-                switch (unsavedFormConfig[id].type) {
-                  case "text":
-                    return (
-                      <SortableItemWrapper key={`configurator-${id}`} id={id}>
-                        {({ setNodeRef, style, attributes, listeners }) => (
-                          <Configurator__Text
-                            index={index}
-                            id={id}
-                            fieldConfig={unsavedFormConfig[id]}
-                            setNodeRef={setNodeRef}
-                            style={style}
-                            attributes={attributes}
-                            listeners={listeners}
-                          />
-                        )}
-                      </SortableItemWrapper>
-                    );
-                  case "email":
-                    return (
-                      <SortableItemWrapper key={`configurator-${id}`} id={id}>
-                        {({ setNodeRef, style, attributes, listeners }) => (
-                          <Configurator__Email
-                            index={index}
-                            id={id}
-                            fieldConfig={unsavedFormConfig[id]}
-                            setNodeRef={setNodeRef}
-                            style={style}
-                            attributes={attributes}
-                            listeners={listeners}
-                          />
-                        )}
-                      </SortableItemWrapper>
-                    );
-                  case "password":
-                    return (
-                      <SortableItemWrapper key={`configurator-${id}`} id={id}>
-                        {({ setNodeRef, style, attributes, listeners }) => (
-                          <Configurator__Password
-                            index={index}
-                            id={id}
-                            fieldConfig={unsavedFormConfig[id]}
-                            setNodeRef={setNodeRef}
-                            style={style}
-                            attributes={attributes}
-                            listeners={listeners}
-                          />
-                        )}
-                      </SortableItemWrapper>
-                    );
-                  case "number":
-                    return (
-                      <SortableItemWrapper key={`configurator-${id}`} id={id}>
-                        {({ setNodeRef, style, attributes, listeners }) => (
-                          <Configurator__Number
-                            index={index}
-                            id={id}
-                            fieldConfig={unsavedFormConfig[id]}
-                            setNodeRef={setNodeRef}
-                            style={style}
-                            attributes={attributes}
-                            listeners={listeners}
-                          />
-                        )}
-                      </SortableItemWrapper>
-                    );
-                  case "select":
-                    return (
-                      <SortableItemWrapper key={`configurator-${id}`} id={id}>
-                        {({ setNodeRef, style, attributes, listeners }) => (
-                          <Configurator__Select
-                            index={index}
-                            id={id}
-                            fieldConfig={unsavedFormConfig[id]}
-                            setNodeRef={setNodeRef}
-                            style={style}
-                            attributes={attributes}
-                            listeners={listeners}
-                          />
-                        )}
-                      </SortableItemWrapper>
-                    );
-                  case "checkbox":
-                    return (
-                      <SortableItemWrapper key={`configurator-${id}`} id={id}>
-                        {({ setNodeRef, style, attributes, listeners }) => (
-                          <Configurator__Checkbox
-                            index={index}
-                            id={id}
-                            fieldConfig={unsavedFormConfig[id]}
-                            setNodeRef={setNodeRef}
-                            style={style}
-                            attributes={attributes}
-                            listeners={listeners}
-                          />
-                        )}
-                      </SortableItemWrapper>
-                    );
-                  case "radio":
-                    return (
-                      <SortableItemWrapper key={`configurator-${id}`} id={id}>
-                        {({ setNodeRef, style, attributes, listeners }) => (
-                          <Configurator__Radio
-                            index={index}
-                            id={id}
-                            fieldConfig={unsavedFormConfig[id]}
-                            setNodeRef={setNodeRef}
-                            style={style}
-                            attributes={attributes}
-                            listeners={listeners}
-                          />
-                        )}
-                      </SortableItemWrapper>
-                    );
-                }
-              })}
-            </Accordion>
-          </SortableContextWrapper>
-        </DnDContextWrapper>
-      </section>
+      {unsavedFieldsOrder.length < 1 && <h3>👈 Start by adding fields</h3>}
+      {unsavedFieldsOrder.length > 0 && (
+        <section className="w-full flex flex-col gap-2">
+          <div>Click on the accordions to configure the fields</div>
+          <DnDContextWrapper>
+            <SortableContextWrapper>
+              <Accordion
+                type="single"
+                collapsible
+                className="w-full border rounded-md"
+              >
+                {unsavedFieldsOrder.map((id, index) => {
+                  switch (unsavedFormConfig[id].type) {
+                    case "text":
+                      return (
+                        <SortableItemWrapper key={`configurator-${id}`} id={id}>
+                          {({ setNodeRef, style, attributes, listeners }) => (
+                            <Configurator__Text
+                              index={index}
+                              id={id}
+                              fieldConfig={unsavedFormConfig[id]}
+                              setNodeRef={setNodeRef}
+                              style={style}
+                              attributes={attributes}
+                              listeners={listeners}
+                            />
+                          )}
+                        </SortableItemWrapper>
+                      );
+                    case "email":
+                      return (
+                        <SortableItemWrapper key={`configurator-${id}`} id={id}>
+                          {({ setNodeRef, style, attributes, listeners }) => (
+                            <Configurator__Email
+                              index={index}
+                              id={id}
+                              fieldConfig={unsavedFormConfig[id]}
+                              setNodeRef={setNodeRef}
+                              style={style}
+                              attributes={attributes}
+                              listeners={listeners}
+                            />
+                          )}
+                        </SortableItemWrapper>
+                      );
+                    case "password":
+                      return (
+                        <SortableItemWrapper key={`configurator-${id}`} id={id}>
+                          {({ setNodeRef, style, attributes, listeners }) => (
+                            <Configurator__Password
+                              index={index}
+                              id={id}
+                              fieldConfig={unsavedFormConfig[id]}
+                              setNodeRef={setNodeRef}
+                              style={style}
+                              attributes={attributes}
+                              listeners={listeners}
+                            />
+                          )}
+                        </SortableItemWrapper>
+                      );
+                    case "number":
+                      return (
+                        <SortableItemWrapper key={`configurator-${id}`} id={id}>
+                          {({ setNodeRef, style, attributes, listeners }) => (
+                            <Configurator__Number
+                              index={index}
+                              id={id}
+                              fieldConfig={unsavedFormConfig[id]}
+                              setNodeRef={setNodeRef}
+                              style={style}
+                              attributes={attributes}
+                              listeners={listeners}
+                            />
+                          )}
+                        </SortableItemWrapper>
+                      );
+                    case "select":
+                      return (
+                        <SortableItemWrapper key={`configurator-${id}`} id={id}>
+                          {({ setNodeRef, style, attributes, listeners }) => (
+                            <Configurator__Select
+                              index={index}
+                              id={id}
+                              fieldConfig={unsavedFormConfig[id]}
+                              setNodeRef={setNodeRef}
+                              style={style}
+                              attributes={attributes}
+                              listeners={listeners}
+                            />
+                          )}
+                        </SortableItemWrapper>
+                      );
+                    case "checkbox":
+                      return (
+                        <SortableItemWrapper key={`configurator-${id}`} id={id}>
+                          {({ setNodeRef, style, attributes, listeners }) => (
+                            <Configurator__Checkbox
+                              index={index}
+                              id={id}
+                              fieldConfig={unsavedFormConfig[id]}
+                              setNodeRef={setNodeRef}
+                              style={style}
+                              attributes={attributes}
+                              listeners={listeners}
+                            />
+                          )}
+                        </SortableItemWrapper>
+                      );
+                    case "radio":
+                      return (
+                        <SortableItemWrapper key={`configurator-${id}`} id={id}>
+                          {({ setNodeRef, style, attributes, listeners }) => (
+                            <Configurator__Radio
+                              index={index}
+                              id={id}
+                              fieldConfig={unsavedFormConfig[id]}
+                              setNodeRef={setNodeRef}
+                              style={style}
+                              attributes={attributes}
+                              listeners={listeners}
+                            />
+                          )}
+                        </SortableItemWrapper>
+                      );
+                  }
+                })}
+              </Accordion>
+            </SortableContextWrapper>
+          </DnDContextWrapper>
+        </section>
+      )}
       {unsavedFieldsOrder.length > 1 && (
         <footer className="w-full flex justify-center">
           <Button

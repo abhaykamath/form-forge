@@ -19,6 +19,7 @@ export default function Preview() {
     (state) => state.savedFormConfig
   );
   const updateFormData = useOutputSotre((state) => state.updateFormData);
+
   const {
     register,
     unregister,
@@ -33,7 +34,7 @@ export default function Preview() {
 
   // Removes stale field names in the form
   useEffect(() => {
-    console.log(savedFormConfig);
+    // console.log(savedFormConfig);
     const registeredNames = Object.keys(getValues());
     const actualNames = Object.values(savedFormConfig).map((obj) => obj.name);
     const staleNames = registeredNames.filter(
@@ -45,7 +46,7 @@ export default function Preview() {
   }, [savedFormConfig, unregister]);
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
+    // console.log(data);
     updateFormData(data);
   };
 
@@ -56,6 +57,7 @@ export default function Preview() {
       className="w-full max-w-xl flex flex-col gap-6 items-center m-auto py-8 px-8"
     >
       <h2 className="text-2xl font-bold">Preview</h2>
+      {savedFieldsOrder.length < 1 && <div>Hmm, your form is looking empty, start building !☝️😎</div>}
       {savedFieldsOrder.map((id) => {
         const fieldConfig = savedFormConfig[id];
         switch (fieldConfig.type) {
