@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 import { FieldConfig } from "@/types/types";
 import { usePreviewStore } from "@/stores/PreviewStore";
+import { ArrowUp01 } from "lucide-react";
 
 function NumberButton() {
   const unsavedFieldsOrder = useConfiguratorStore(
@@ -33,6 +34,7 @@ function NumberButton() {
         addFieldToSavedFormConfig(id, fieldConfig);
       }}
     >
+      <ArrowUp01 />
       Number
     </Button>
   );

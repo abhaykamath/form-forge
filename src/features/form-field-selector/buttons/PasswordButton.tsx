@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 import { FieldConfig } from "@/types/types";
 import { usePreviewStore } from "@/stores/PreviewStore";
+import { KeyRound } from "lucide-react";
 
 function PasswordButton() {
   const unsavedFieldsOrder = useConfiguratorStore(
@@ -33,6 +34,7 @@ function PasswordButton() {
         addFieldToSavedFormConfig(id, fieldConfig);
       }}
     >
+      <KeyRound />
       Password
     </Button>
   );

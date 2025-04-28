@@ -22,12 +22,12 @@ const ConfiguratorPanel = () => {
   );
   const syncPreview = usePreviewStore((state) => state.syncPreview);
   return (
-    <div className="border w-full max-w-xl flex flex-col items-center m-auto rounded-md">
-      <header className="w-full p-2 text-center border-b">
+    <div className="w-full p-4 flex flex-col items-cente gap-4">
+      <header className="w-full text-center text-2xl font-bold">
         Configuration Panel
       </header>
       {/* Configurators List */}
-      <section className="w-full p-2 flex flex-col gap-2">
+      <section className="w-full flex flex-col gap-2">
         <DnDContextWrapper>
           <SortableContextWrapper>
             <Accordion
@@ -155,15 +155,17 @@ const ConfiguratorPanel = () => {
           </SortableContextWrapper>
         </DnDContextWrapper>
       </section>
-      <footer className="w-full p-2 flex justify-center border-t">
-        <Button
-          onClick={() => {
-            syncPreview(unsavedFieldsOrder, unsavedFormConfig);
-          }}
-        >
-          Sync Preview
-        </Button>
-      </footer>
+      {unsavedFieldsOrder.length > 1 && (
+        <footer className="w-full flex justify-center">
+          <Button
+            onClick={() => {
+              syncPreview(unsavedFieldsOrder, unsavedFormConfig);
+            }}
+          >
+            Sync Order
+          </Button>
+        </footer>
+      )}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 import { FieldConfig } from "@/types/types";
 import { usePreviewStore } from "@/stores/PreviewStore";
+import { Type } from "lucide-react";
 
 function TextButton() {
   const unsavedFieldsOrder = useConfiguratorStore(
@@ -33,6 +34,7 @@ function TextButton() {
         addFieldToSavedFormConfig(id, fieldConfig);
       }}
     >
+      <Type />
       Text
     </Button>
   );

@@ -31,6 +31,7 @@ export default function Preview() {
 
   // Removes stale field names in the form
   useEffect(() => {
+    // console.log(savedFormConfig);
     const registeredNames = Object.keys(getValues());
     const actualNames = Object.values(savedFormConfig).map((obj) => obj.name);
     const staleNames = registeredNames.filter(
@@ -49,8 +50,9 @@ export default function Preview() {
     <form
       ref={animationParent}
       onSubmit={handleSubmit(onSubmit)}
-      className="border w-full max-w-xl flex flex-col gap-6 items-center m-auto py-8 rounded-md"
+      className="w-full max-w-xl flex flex-col gap-6 items-center m-auto py-8"
     >
+      <h2 className="text-2xl font-bold">Preview</h2>
       {savedFieldsOrder.map((id) => {
         const fieldConfig = savedFormConfig[id];
         switch (fieldConfig.type) {

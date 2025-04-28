@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 import { FieldConfig } from "@/types/types";
 import { usePreviewStore } from "@/stores/PreviewStore";
+import { Circle } from "lucide-react";
 
 function RadioButton() {
   const unsavedFieldsOrder = useConfiguratorStore(
@@ -17,6 +18,7 @@ function RadioButton() {
 
   return (
     <Button
+      className="w-full"
       onClick={() => {
         const id = uuid();
         const fieldConfig: FieldConfig = {
@@ -34,6 +36,7 @@ function RadioButton() {
         addFieldToSavedFormConfig(id, fieldConfig);
       }}
     >
+      <Circle />
       Radio - Group
     </Button>
   );

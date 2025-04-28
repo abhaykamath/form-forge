@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 import { FieldConfig } from "@/types/types";
 import { usePreviewStore } from "@/stores/PreviewStore";
+import { Mail } from "lucide-react";
 
 function EmailButton() {
   const unsavedFieldsOrder = useConfiguratorStore(
@@ -37,6 +38,7 @@ function EmailButton() {
         addFieldToSavedFormConfig(id, fieldConfig);
       }}
     >
+      <Mail />
       Email
     </Button>
   );

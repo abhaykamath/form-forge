@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
 import { FieldConfig } from "@/types/types";
 import { usePreviewStore } from "@/stores/PreviewStore";
+import { SquareCheck } from "lucide-react";
 
 function CheckboxButton() {
   const unsavedFieldsOrder = useConfiguratorStore(
@@ -17,6 +18,7 @@ function CheckboxButton() {
 
   return (
     <Button
+      className="w-full"
       onClick={() => {
         const id = uuid();
         const fieldConfig: FieldConfig = {
@@ -33,6 +35,7 @@ function CheckboxButton() {
         addFieldToSavedFormConfig(id, fieldConfig);
       }}
     >
+      <SquareCheck />
       Checkbox - Group
     </Button>
   );
