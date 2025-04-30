@@ -12,6 +12,7 @@ import FormData from "./components/landing/FormData";
 
 const App = () => {
   const savedFormConfig = usePreviewStore((state) => state.savedFormConfig);
+  const savedFieldsOrder = usePreviewStore((state) => state.savedFieldsOrder);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -34,8 +35,13 @@ const App = () => {
             </div>
             <div className="h-fit col-span-12 border-2 rounded-xl shadow-lg">
               <div className="w-full p-4">
-                <h3 className="mb-2"><span className="font-bold italic">JSX</span> - React Hook Form integrated</h3>
-                <PreviewJSX code={generateRHFJSX(savedFormConfig)} />
+                <h3 className="mb-2">
+                  <span className="font-bold italic">JSX</span> - React Hook
+                  Form integrated
+                </h3>
+                <PreviewJSX
+                  code={generateRHFJSX(savedFieldsOrder, savedFormConfig)}
+                />
               </div>
             </div>
             <Mention />

@@ -1,7 +1,10 @@
-import { FieldConfig } from "@/types/types";
+import { FieldConfig, T_FieldsOrder } from "@/types/types";
 
-export function generateRHFJSX(config: Record<string, FieldConfig>) {
-  const fieldEntries = Object.values(config);
+export function generateRHFJSX(
+  order: T_FieldsOrder,
+  config: Record<string, FieldConfig>
+) {
+  // const fieldEntries = Object.values(config);
 
   return `
 import React from 'react';
@@ -15,7 +18,7 @@ export default function GeneratedForm() {
   return (
     <form onSubmit = { handleSubmit(onSubmit) }>
 ${
-  Array.isArray(fieldEntries) ? ReduceFieldEntries(fieldEntries) : ""
+  order.length > 0 ? ReduceFieldEntries(order.map((id) => config[id])) : ""
 }      <input type="submit" />
     </form>
   );
@@ -23,45 +26,52 @@ ${
 `;
 }
 
-
 function ReduceFieldEntries(fieldEntries: FieldConfig[]) {
-  return fieldEntries.reduce((acc, { type, name, placeholder, options, validation, label }) => {
-    const { required, max, min, maxLength, minLength, pattern } = validation || {};
-    const extractValue = (rule: any) => {
-      if (typeof rule === 'object' && rule !== null && 'value' in rule) {
-        return rule.value;
+  return fieldEntries.reduce(
+    (acc, { type, name, placeholder, options, validation, label }) => {
+      const { required, max, min, maxLength, minLength, pattern } =
+        validation || {};
+      const extractValue = (rule: any) => {
+        if (typeof rule === "object" && rule !== null && "value" in rule) {
+          return rule.value;
+        }
+        return rule;
+      };
+      const buildValidationAttributes = () => {
+        const validations: string[] = [];
+        if (required) validations.push(`required: ${JSON.stringify(required)}`);
+        if (max) validations.push(`max: ${extractValue(max)}`);
+        if (min) validations.push(`min: ${extractValue(min)}`);
+        if (minLength)
+          validations.push(`minLength: ${extractValue(minLength)}`);
+        if (maxLength)
+          validations.push(`maxLength: ${extractValue(maxLength)}`);
+        if (pattern) {
+          const patternVal = extractValue(pattern);
+          validations.push(
+            `pattern: ${
+              patternVal instanceof RegExp ? patternVal : `/${patternVal}/i`
+            }`
+          );
+        }
+        return validations.length
+          ? `("${name}", { ${validations.join(", ")} })`
+          : `("${name}")`;
+      };
+      const registerString = `{...register${buildValidationAttributes()}}`;
+      if (type === "select") {
+        return acc + SelectCode(options, label, registerString);
       }
-      return rule;
-    };
-    const buildValidationAttributes = () => {
-      const validations: string[] = [];
-      if (required) validations.push(`required: ${JSON.stringify(required)}`);
-      if (max) validations.push(`max: ${extractValue(max)}`);
-      if (min) validations.push(`min: ${extractValue(min)}`);
-      if (minLength) validations.push(`minLength: ${extractValue(minLength)}`);
-      if (maxLength) validations.push(`maxLength: ${extractValue(maxLength)}`);
-      if (pattern) {
-        const patternVal = extractValue(pattern);
-        validations.push(`pattern: ${patternVal instanceof RegExp ? patternVal : `/${patternVal}/i`}`);
+      if (type === "radio") {
+        return acc + RadioCode(options, label, registerString);
       }
-      return validations.length
-        ? `("${name}", { ${validations.join(", ")} })`
-        : `("${name}")`;
-    };
-    const registerString = `{...register${buildValidationAttributes()}}`;
-    if (type === "select") {
-      return acc + SelectCode(options, label, registerString)
-    }
-    if (type === "radio") {
-      return (
-        acc + RadioCode(options, label, registerString)
-      );
-    }
-    if (type === "checkbox") {
-      return acc + CheckboxCode(options, label, registerString)
-    }
-    return acc + TextCode(type, placeholder, label, registerString)
-  }, "")
+      if (type === "checkbox") {
+        return acc + CheckboxCode(options, label, registerString);
+      }
+      return acc + TextCode(type, placeholder, label, registerString);
+    },
+    ""
+  );
 }
 
 function TextCode(
@@ -73,7 +83,9 @@ function TextCode(
   return (
     `      {/*-----${type.toLocaleUpperCase()}: ${label}----*/}\n` +
     `      <label>${label}</label>\n` +
-    `      <input type="${type}" placeholder="${placeholder || ""}" ${registerString} />\n`
+    `      <input type="${type}" placeholder="${
+      placeholder || ""
+    }" ${registerString} />\n`
   );
 }
 
@@ -85,7 +97,12 @@ function RadioCode(
   return (
     `      {/*-----Radio Group: ${label}-----*/}\n` +
     `      <label>${label}</label>\n` +
-    `${(options || []).map((option) => `      <input ${registerString} type="radio" value="${option}" />\n`).join("")}`
+    `${(options || [])
+      .map(
+        (option) =>
+          `      <input ${registerString} type="radio" value="${option}" />\n`
+      )
+      .join("")}`
   );
 }
 
@@ -97,7 +114,12 @@ function CheckboxCode(
   return (
     `      {/*-----Checkbox: ${label}-----*/}\n` +
     `      <label>${label}</label>\n` +
-    `${(options || []).map(option => `      <input ${registerString} type="checkbox" value="${option}" />\n`).join("")}`
+    `${(options || [])
+      .map(
+        (option) =>
+          `      <input ${registerString} type="checkbox" value="${option}" />\n`
+      )
+      .join("")}`
   );
 }
 
@@ -110,7 +132,9 @@ function SelectCode(
     `      {/*-----Select: ${label}-----*/}\n` +
     `      <label>${label}</label>\n` +
     `      <select ${registerString}>\n` +
-    `${(options || []).map(option => `        <option value="${option}">${option}</option>`).join("\n")}\n` +
+    `${(options || [])
+      .map((option) => `        <option value="${option}">${option}</option>`)
+      .join("\n")}\n` +
     `      </select>\n`
   );
 }

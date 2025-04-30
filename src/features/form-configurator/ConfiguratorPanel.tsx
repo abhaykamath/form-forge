@@ -159,9 +159,12 @@ const ConfiguratorPanel = () => {
           </DnDContextWrapper>
         </section>
       )}
-      {unsavedFieldsOrder.length > 1 && (
+      {/* Saved field order is now being updated in the DnDContextWrapper
+          on drag end. */}
+      {/* {unsavedFieldsOrder.length > 1 && (
         <footer className="w-full flex justify-center">
           <Button
+            disabled
             onClick={() => {
               syncPreview(unsavedFieldsOrder, unsavedFormConfig);
             }}
@@ -169,7 +172,7 @@ const ConfiguratorPanel = () => {
             Sync Order
           </Button>
         </footer>
-      )}
+      )} */}
     </div>
   );
 };
