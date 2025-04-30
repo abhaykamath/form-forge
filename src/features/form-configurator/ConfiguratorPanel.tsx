@@ -7,8 +7,6 @@ import Configurator__Number from "./configurators/Configurator__Number";
 import DnDContextWrapper from "../dnd/DnDContextWrapper";
 import SortableContextWrapper from "../dnd/SortableContextWrapper";
 import SortableItemWrapper from "../dnd/SortableItemWrapper";
-import { Button } from "@/components/ui/button";
-import { usePreviewStore } from "@/stores/PreviewStore";
 import Configurator__Select from "./configurators/Configurator__Select";
 import Configurator__Checkbox from "./configurators/Configurator__Checkbox";
 import Configurator__Radio from "./configurators/Configurator__Radio";
@@ -20,7 +18,6 @@ const ConfiguratorPanel = () => {
   const unsavedFormConfig = useConfiguratorStore(
     (state) => state.unsavedFormConfig
   );
-  const syncPreview = usePreviewStore((state) => state.syncPreview);
   return (
     <div className="w-full p-4 flex flex-col items-cente gap-4">
       <header className="w-full text-center text-2xl font-bold">
