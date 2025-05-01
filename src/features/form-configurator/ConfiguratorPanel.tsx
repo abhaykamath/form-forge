@@ -3,7 +3,8 @@ import { Accordion } from "@/components/ui/accordion";
 import DnDContextWrapper from "../dnd/DnDContextWrapper";
 import SortableContextWrapper from "../dnd/SortableContextWrapper";
 import SortableItemWrapper from "../dnd/SortableItemWrapper";
-import configuratorMap from "./configuratorMap";
+import { inputTypeSchemas } from "./configuratorMap";
+import GenericConfigurator from "./GenericConfigurator";
 
 const ConfiguratorPanel = () => {
   const unsavedFieldsOrder = useConfiguratorStore(
@@ -12,6 +13,7 @@ const ConfiguratorPanel = () => {
   const unsavedFormConfig = useConfiguratorStore(
     (state) => state.unsavedFormConfig
   );
+
   return (
     <div className="w-full p-4 flex flex-col items-center gap-4">
       <header className="w-full text-center text-2xl font-bold">
@@ -20,7 +22,6 @@ const ConfiguratorPanel = () => {
       {unsavedFieldsOrder.length < 1 && <h3>👈 Start by adding fields</h3>}
       {unsavedFieldsOrder.length > 0 && (
         <section className="w-full flex flex-col gap-2">
-          <div>Click on the accordions to configure the fields</div>
           <DnDContextWrapper>
             <SortableContextWrapper>
               <Accordion
@@ -30,17 +31,17 @@ const ConfiguratorPanel = () => {
               >
                 {unsavedFieldsOrder.map((id, index) => {
                   const config = unsavedFormConfig[id];
-                  const ConfiguratorComponent = configuratorMap[config.type];
-
-                  if (!ConfiguratorComponent) return null;
-
+                  const schema = inputTypeSchemas[config.type];
+                  if (!schema) return null;
                   return (
                     <SortableItemWrapper key={`configurator-${id}`} id={id}>
                       {({ setNodeRef, style, attributes, listeners }) => (
-                        <ConfiguratorComponent
+                        <GenericConfigurator
                           index={index}
                           id={id}
+                          type={config.type}
                           fieldConfig={config}
+                          schema={schema}
                           setNodeRef={setNodeRef}
                           style={style}
                           attributes={attributes}
