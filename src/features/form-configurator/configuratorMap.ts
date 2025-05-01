@@ -21,7 +21,7 @@ export const inputTypeSchemas: Record<string, FieldTypeSchema> = {
   email: {
     fields: [asField(NAME), asField(LABEL), asField(PLACEHOLDER)],
     validation: {
-      required: "Email is required",
+      required: "Email is required", 
       pattern: {
         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         message: "Invalid email format",

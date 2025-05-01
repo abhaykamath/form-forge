@@ -113,13 +113,6 @@ const GenericConfigurator = ({
                 {fields.map((Field, idx) => (
                   <Field key={idx} register={register} errors={errors} />
                 ))}
-                {/* {schema?.validationFields?.map((ValidationField, idx) => (
-                  <ValidationField
-                    key={`val-${idx}`}
-                    register={register}
-                    errors={errors}
-                  />
-                ))} */}
               </div>
               <div className="p-2 flex justify-end gap-2">
                 <Button type="submit" className="flex items-center">
