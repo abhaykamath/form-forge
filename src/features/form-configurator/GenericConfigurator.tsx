@@ -24,6 +24,7 @@ interface GenericConfiguratorProps {
 }
 
 export type FieldRenderProps = {
+  name?: string;
   register: UseFormRegister<FormData>;
   errors: FieldErrors<FormData>;
 };
@@ -32,6 +33,7 @@ export type FieldTypeSchema = {
   fields: ((props: FieldRenderProps) => JSX.Element)[];
   validation: any;
   optionKey?: string | null;
+  validationFields?: ((props: FieldRenderProps) => JSX.Element)[];
 };
 
 const GenericConfigurator = ({
