@@ -13,7 +13,7 @@ const ConfiguratorPanel = () => {
     (state) => state.unsavedFormConfig
   );
   return (
-    <div className="w-full p-4 flex flex-col items-cente gap-4">
+    <div className="w-full p-4 flex flex-col items-center gap-4">
       <header className="w-full text-center text-2xl font-bold">
         Configuration Panel
       </header>
