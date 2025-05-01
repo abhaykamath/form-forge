@@ -24,6 +24,7 @@ interface GenericConfiguratorProps {
 }
 
 export type FieldRenderProps = {
+  name?: string;
   register: UseFormRegister<FormData>;
   errors: FieldErrors<FormData>;
 };
@@ -32,6 +33,7 @@ export type FieldTypeSchema = {
   fields: ((props: FieldRenderProps) => JSX.Element)[];
   validation: any;
   optionKey?: string | null;
+  validationFields?: ((props: FieldRenderProps) => JSX.Element)[];
 };
 
 const GenericConfigurator = ({
@@ -111,6 +113,13 @@ const GenericConfigurator = ({
                 {fields.map((Field, idx) => (
                   <Field key={idx} register={register} errors={errors} />
                 ))}
+                {/* {schema?.validationFields?.map((ValidationField, idx) => (
+                  <ValidationField
+                    key={`val-${idx}`}
+                    register={register}
+                    errors={errors}
+                  />
+                ))} */}
               </div>
               <div className="p-2 flex justify-end gap-2">
                 <Button type="submit" className="flex items-center">

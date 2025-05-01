@@ -7,10 +7,11 @@ import { FieldRenderProps, FieldTypeSchema } from "./GenericConfigurator";
 
 export const asField =
   (
-    Component: React.ComponentType<any>
+    Component: React.ComponentType<any>,
+    fieldName?: string
   ): ((props: FieldRenderProps) => JSX.Element) =>
   (props) =>
-    React.createElement(Component, props);
+    React.createElement(Component, { fieldName, ...props });
 
 export const inputTypeSchemas: Record<string, FieldTypeSchema> = {
   text: {
@@ -42,17 +43,21 @@ export const inputTypeSchemas: Record<string, FieldTypeSchema> = {
     },
   },
   checkbox: {
-    fields: [asField(OPTIONS), asField(NAME), asField(LABEL)],
+    fields: [
+      asField(NAME),
+      asField(LABEL),
+      asField(OPTIONS, "checkbox-options"),
+    ],
     validation: { required: "Please select 1 option" },
     optionKey: "checkbox-options",
   },
   radio: {
-    fields: [asField(OPTIONS), asField(NAME), asField(LABEL)],
+    fields: [asField(NAME), asField(LABEL), asField(OPTIONS, "radio-options")],
     validation: { required: "Please select at least 1 option" },
     optionKey: "radio-options",
   },
   select: {
-    fields: [asField(OPTIONS), asField(NAME), asField(LABEL)],
+    fields: [asField(NAME), asField(LABEL), asField(OPTIONS, "select-options")],
     validation: { required: "Please select at least 1 option" },
     optionKey: "select-options",
   },

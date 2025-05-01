@@ -2,11 +2,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const OPTIONS = ({
-  name,
+  fieldName,
   register,
   errors,
 }: {
-  name: string;
+  fieldName: string;
   register: any;
   errors: any;
 }) => {
@@ -14,7 +14,7 @@ const OPTIONS = ({
     <div className="col-span-2 flex flex-col items-start gap-1.5">
       <Label>Set the options</Label>
       <Input
-        {...register(name, {
+        {...register(fieldName, {
           required: "At least 1 option is required",
           pattern: {
             value: /^[\w\s'’]+(;\s*[\w\s'’]+)*$/,
@@ -26,8 +26,10 @@ const OPTIONS = ({
         type="text"
         placeholder="e.g., option1;option2;option3"
       />
-      {errors[name] && (
-        <p className="text-sm text-red-700">{String(errors[name]?.message)}</p>
+      {errors[fieldName] && (
+        <p className="text-sm text-red-700">
+          {String(errors[fieldName]?.message)}
+        </p>
       )}
     </div>
   );
