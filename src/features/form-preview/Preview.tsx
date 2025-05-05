@@ -25,7 +25,10 @@ export default function Preview() {
     unregister,
     getValues,
     handleSubmit,
+    clearErrors,
+    trigger,
     control,
+    formState,
     formState: { errors },
   } = useForm<FormData>({
     mode: "onChange",
@@ -34,7 +37,8 @@ export default function Preview() {
 
   // Removes stale field names in the form
   useEffect(() => {
-    // console.log(savedFormConfig);
+    clearErrors(Object.keys(formState.errors));
+    trigger()
     const registeredNames = Object.keys(getValues());
     const actualNames = Object.values(savedFormConfig).map((obj) => obj.name);
     const staleNames = registeredNames.filter(
@@ -46,7 +50,6 @@ export default function Preview() {
   }, [savedFormConfig, unregister]);
 
   const onSubmit = (data: FormData) => {
-    // console.log(data);
     updateFormData(data);
   };
 
@@ -57,7 +60,9 @@ export default function Preview() {
       className="w-full max-w-xl flex flex-col gap-6 items-center m-auto py-8 px-8"
     >
       <h2 className="text-2xl font-bold">Preview</h2>
-      {savedFieldsOrder.length < 1 && <div>Hmm, your form is looking empty, start building !☝️😎</div>}
+      {savedFieldsOrder.length < 1 && (
+        <div>Hmm, your form is looking empty, start building !☝️😎</div>
+      )}
       {savedFieldsOrder.map((id) => {
         const fieldConfig = savedFormConfig[id];
         switch (fieldConfig.type) {
@@ -67,7 +72,7 @@ export default function Preview() {
           case "text":
             return (
               <PENT_Input
-                key={fieldConfig.name}
+                key={fieldConfig.name + fieldConfig.id}
                 field={fieldConfig}
                 register={register}
                 errors={errors}
@@ -76,7 +81,7 @@ export default function Preview() {
           case "select":
             return (
               <Select_Input
-                key={fieldConfig.name}
+                key={fieldConfig.name + fieldConfig.id}
                 field={fieldConfig}
                 control={control}
                 errors={errors}
@@ -85,7 +90,7 @@ export default function Preview() {
           case "checkbox":
             return (
               <Checkbox_Input
-                key={fieldConfig.name}
+                key={fieldConfig.name + fieldConfig.id}
                 field={fieldConfig}
                 control={control}
                 errors={errors}
@@ -94,7 +99,7 @@ export default function Preview() {
           case "radio":
             return (
               <RadioGroup_Input
-                key={fieldConfig.name}
+                key={fieldConfig.name + fieldConfig.id}
                 field={fieldConfig}
                 control={control}
                 errors={errors}

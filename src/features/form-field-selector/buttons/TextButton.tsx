@@ -26,9 +26,6 @@ function TextButton() {
           label: "",
           name: `form-field-${unsavedFieldsOrder.length + 1}`,
           placeholder: "",
-          validation: {
-            required: "This field is required",
-          },
         };
         addFieldToUnsavedFormConfig(id, fieldConfig);
         addFieldToSavedFormConfig(id, fieldConfig);
