@@ -6,12 +6,10 @@ import Checkbox_Input from "./Checkbox_Input";
 import RadioGroup_Input from "./RadioGroup_Input";
 import { FormData, T_FieldsOrder, T_FormConfig } from "@/types/types";
 import { usePreviewStore } from "@/stores/PreviewStore";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useEffect } from "react";
 import { useOutputSotre } from "@/stores/OutputStore";
 
 export default function Preview() {
-  const [animationParent] = useAutoAnimate();
   const savedFieldsOrder: T_FieldsOrder = usePreviewStore(
     (state) => state.savedFieldsOrder
   );
