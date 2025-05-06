@@ -16,9 +16,6 @@ const ConfiguratorPanel = () => {
 
   return (
     <div className="w-full p-4 flex flex-col items-center gap-4">
-      <header className="w-full text-center text-2xl font-bold">
-        Configuration Panel
-      </header>
       {unsavedFieldsOrder.length < 1 && <h3>👈 Start by adding fields</h3>}
       {unsavedFieldsOrder.length > 0 && (
         <section className="w-full flex flex-col gap-2">

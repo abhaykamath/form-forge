@@ -1,28 +1,22 @@
-import { Github, Heart, Linkedin, Twitter } from "lucide-react";
-
+import { Heart } from "lucide-react";
 const Footer = () => {
   return (
-    <footer className="w-full p-4 pb-16 flex justify-between border-t-2">
+    <footer className="w-full p-4 px-32 py-8 flex justify-between items-center border-t-2 bg-primary text-primary-foreground">
       <div className="flex gap-1">
         Made with <Heart fill="red" /> by Abhay Kamath
       </div>
       <div className="flex gap-4">
-        <a
-          href="https://github.com/abhaykamath/form-forge"
-          target="_blank"
-          className=""
-        >
-          <Github />
+        <a href="https://github.com/abhaykamath/form-forge" target="_blank">
+          <i className="fa-brands fa-github text-2xl"></i>
         </a>
         <a
           href="https://www.linkedin.com/in/m-abhay-kamath-b5b466129/"
           target="_blank"
-          className=""
         >
-          <Linkedin />
+          <i className="fa-brands fa-linkedin text-2xl"></i>
         </a>
-        <a href="https://x.com/m_abhaykamath" target="_blank" className="">
-          <Twitter />
+        <a href="https://x.com/m_abhaykamath" target="_blank">
+          <i className="fa-brands fa-square-x-twitter text-2xl"></i>
         </a>
       </div>
       <div className="flex gap-2">

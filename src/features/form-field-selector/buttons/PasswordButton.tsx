@@ -18,6 +18,7 @@ function PasswordButton() {
 
   return (
     <Button
+      className="w-full"
       onClick={() => {
         const id = uuid();
         const fieldConfig: FieldConfig = {

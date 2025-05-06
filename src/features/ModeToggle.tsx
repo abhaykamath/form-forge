@@ -11,7 +11,7 @@ export function ThemeToggle() {
       <Button
         variant="outline"
         size="icon"
-        className="border-2 scale-0 dark:scale-100 absolute"
+        className="border-2 rounded-xl scale-0 dark:scale-100 absolute"
         onClick={() => setTheme("light")}
       >
         <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90  transition-all dark:rotate-0" />
@@ -19,7 +19,7 @@ export function ThemeToggle() {
       <Button
         variant="outline"
         size="icon"
-        className="border-2 scale-100 dark:scale-0 absolute"
+        className="border-2 rounded-xl scale-100 dark:scale-0 absolute"
         onClick={() => setTheme("dark")}
       >
         <Sun className="h-[1.2rem] w-[1.2rem] rotate-0  transition-all dark:-rotate-90" />
