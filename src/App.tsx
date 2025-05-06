@@ -25,22 +25,27 @@ const App = () => {
           <Navbar />
 
           {/* HERO SECTION */}
-          <section className="flex flex-col justify-center items-center text-center gap-4 p-4 py-16">
+          <section className="flex flex-col justify-center items-center text-center p-4 py-16">
             <h1 className="text-5xl font-extrabold text-primary dark:text-primary-foreground">
               Form Forge
             </h1>
-            <p className="text-xl max-w-2xl text-primary dark:text-primary-foreground">
+            <p className="text-lg max-w-2xl text-primary dark:text-primary-foreground mt-8">
               Design powerful, customizable forms visually — without writing
               boilerplate code.
-              <p>Get React Hook Form-ready JSX instantly.</p>
             </p>
-            <Button className="text-lg px-8 py-4 rounded-xl" variant="default">
+            <p className="text-lg max-w-2xl text-primary dark:text-primary-foreground mt-2">
+              Get React Hook Form-ready JSX instantly.
+            </p>
+            <Button
+              className="text-lg px-8 py-4 rounded-xl mt-8"
+              variant="default"
+            >
               🚀 Start Building Now 👇
             </Button>
           </section>
 
           {/* BUILDER DEMO - V1 */}
-          <section className="py-16 px-32 flex flex-col gap-16 bg-secondary">
+          <section className="py-16 px-8 xl:px-32 flex flex-col gap-16 bg-secondary">
             <h3 className="text-center text-3xl font-extrabold text-primary dark:text-primary-foreground underline underline-offset-4">
               Form Builder - Live Demo
             </h3>

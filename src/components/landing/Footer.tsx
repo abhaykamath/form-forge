@@ -1,7 +1,7 @@
 import { Heart } from "lucide-react";
 const Footer = () => {
   return (
-    <footer className="w-full p-4 px-32 py-8 flex justify-between items-center border-t-2 bg-primary text-primary-foreground">
+    <footer className="w-full p-4 px-8 xl:px-32 py-8 flex justify-between items-center bg-primary text-primary-foreground">
       <div className="flex gap-1">
         Made with <Heart fill="red" /> by Abhay Kamath
       </div>
