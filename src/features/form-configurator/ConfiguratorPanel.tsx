@@ -1,4 +1,4 @@
-import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
+import { useConfiguratorStore } from "@/stores/demo/DEMO_ConfiguratorStore";
 import { Accordion } from "@/components/ui/accordion";
 import DnDContextWrapper from "../dnd/DnDContextWrapper";
 import SortableContextWrapper from "../dnd/SortableContextWrapper";

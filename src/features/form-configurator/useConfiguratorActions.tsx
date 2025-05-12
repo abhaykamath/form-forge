@@ -1,5 +1,5 @@
-import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
-import { usePreviewStore } from "@/stores/PreviewStore";
+import { useConfiguratorStore } from "@/stores/demo/DEMO_ConfiguratorStore";
+import { usePreviewStore } from "@/stores/demo/DEMO_PreviewStore";
 import { FormData } from "@/types/types";
 
 export const useConfiguratorActions = () => {

@@ -5,9 +5,9 @@ import Select_Input from "./Select_Input";
 import Checkbox_Input from "./Checkbox_Input";
 import RadioGroup_Input from "./RadioGroup_Input";
 import { FormData, T_FieldsOrder, T_FormConfig } from "@/types/types";
-import { usePreviewStore } from "@/stores/PreviewStore";
+import { usePreviewStore } from "@/stores/demo/DEMO_PreviewStore";
 import { useEffect } from "react";
-import { useOutputSotre } from "@/stores/OutputStore";
+import { useOutputSotre } from "@/stores/demo/DEMO_OutputStore";
 
 export default function Preview() {
   const savedFieldsOrder: T_FieldsOrder = usePreviewStore(

@@ -1,8 +1,8 @@
-import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
+import { useConfiguratorStore } from "@/stores/demo/DEMO_ConfiguratorStore";
 import { closestCenter, DndContext } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
-import { usePreviewStore } from "@/stores/PreviewStore";
+import { usePreviewStore } from "@/stores/demo/DEMO_PreviewStore";
 
 const DnDContextWrapper = ({ children }: { children: React.ReactNode }) => {
   const unsavedFieldsOrder = useConfiguratorStore(

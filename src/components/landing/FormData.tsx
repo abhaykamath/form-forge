@@ -1,4 +1,4 @@
-import { useOutputSotre } from "@/stores/OutputStore";
+import { useOutputSotre } from "@/stores/demo/DEMO_OutputStore";
 
 const FormData = () => {
   const data = useOutputSotre((state) => state.FormData);

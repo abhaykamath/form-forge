@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { FieldConfig, T_FieldsOrder, T_FormConfig } from "@/types/types";
-import { unsavedFieldsOrder, unsavedFormConfig } from "./UnsavedConfig";
+import { unsavedFieldsOrder, unsavedFormConfig } from "./DEMO_UnsavedConfig";
 
 type ConfiguratorState = {
   unsavedFieldsOrder: T_FieldsOrder;

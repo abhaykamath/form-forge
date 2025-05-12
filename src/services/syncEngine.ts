@@ -15,7 +15,7 @@ import {
   useRemovePreviewField,
   useSetPreviewConfig,
   useUpdatePreviewField,
-} from "@/stores/NEW_PreviewStore";
+} from "@/stores/PreviewStore";
 
 /**
  * SyncEngine provides a unified API to manage form config synchronization

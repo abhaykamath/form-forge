@@ -1,4 +1,4 @@
-import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
+import { useConfiguratorStore } from "@/stores/demo/DEMO_ConfiguratorStore";
 import {
   SortableContext,
   verticalListSortingStrategy,

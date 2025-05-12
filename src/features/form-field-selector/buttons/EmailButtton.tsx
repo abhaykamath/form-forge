@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { v4 as uuid } from "uuid";
-import { useConfiguratorStore } from "@/stores/ConfiguratorStore";
+import { useConfiguratorStore } from "@/stores/demo/DEMO_ConfiguratorStore";
 import { FieldConfig } from "@/types/types";
-import { usePreviewStore } from "@/stores/PreviewStore";
+import { usePreviewStore } from "@/stores/demo/DEMO_PreviewStore";
 import { Mail } from "lucide-react";
 
 function EmailButton() {

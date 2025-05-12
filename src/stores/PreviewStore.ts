@@ -1,64 +1,102 @@
+import { T_FieldConfig, T_FormConfig } from "@/db/supabaseFunctions";
 import { create } from "zustand";
-import { savedFieldsOrder, savedFormConfig } from "./SavedConfig";
-import { FieldConfig, T_FieldsOrder, T_FormConfig } from "@/types/types";
 
-type FormState = {
-  savedFieldsOrder: T_FieldsOrder;
-  savedFormConfig: T_FormConfig;
-  addFieldToSavedFormConfig: (id: string, fieldConfig: FieldConfig) => void;
-  deleteFieldFromSaved: (idToDelete: string) => void;
-  updateSavedFormConfig: (id: string, updates: FieldConfig) => any;
-  updateSavedFieldsOrder: (updatedOrder: T_FieldsOrder) => void;
-  syncPreview: (newOrder: T_FieldsOrder, newFormConfig: T_FormConfig) => void;
+export type PreviewState = {
+  previewConfig: T_FormConfig;
+  setPreviewConfig: (formConfig: T_FormConfig) => void;
+  addPreviewField: (fieldId: string, fieldConfig: T_FieldConfig) => void;
+  updatePreviewField: (
+    fieldId: string,
+    updatedConfig: Partial<T_FieldConfig>
+  ) => void;
+  removePreviewField: (fieldId: string) => void;
 };
 
-const Inital_savedFieldsOrder: T_FieldsOrder = savedFieldsOrder;
-const Initial_savedFormConfig: T_FormConfig = savedFormConfig;
+const initialPreviewConfig: T_FormConfig = {
+  form_id: "",
+  form_name: "",
+  form_description: "",
+  creator_id: "",
+  created_at: "",
+  updated_at: "",
+  field_order: [],
+  field_config: {},
+};
 
-export const usePreviewStore = create<FormState>((set) => ({
-  savedFieldsOrder: Inital_savedFieldsOrder,
-  savedFormConfig: Initial_savedFormConfig,
-  addFieldToSavedFormConfig: (id: string, fieldConfig: FieldConfig) => {
+const usePreviewStore = create<PreviewState>((set) => ({
+  previewConfig: initialPreviewConfig,
+
+  setPreviewConfig: (formConfig) => {
+    set(() => ({
+      previewConfig: formConfig,
+    }));
+  },
+
+  addPreviewField: (fieldId, fieldConfig) => {
     set((state) => {
-      const updatedOrder = [...state.savedFieldsOrder];
-      const updatedConfig = { ...state.savedFormConfig };
+      const updatedFieldOrder = [...state.previewConfig.field_order];
+      const updatedFieldConfig = { ...state.previewConfig.field_config };
+
       return {
-        savedFieldsOrder: [...updatedOrder, id],
-        savedFormConfig: { ...updatedConfig, [id]: fieldConfig },
+        previewConfig: {
+          ...state.previewConfig,
+          field_order: [...updatedFieldOrder, fieldId],
+          field_config: { ...updatedFieldConfig, [fieldId]: fieldConfig },
+        },
       };
     });
   },
-  deleteFieldFromSaved: (idToDelete) => {
+
+  updatePreviewField: (fieldId, updatedConfig) => {
     set((state) => {
-      if (!state.savedFieldsOrder.includes(idToDelete)) return state;
-      const updatedOrder: T_FieldsOrder = state.savedFieldsOrder.filter(
-        (id) => id !== idToDelete
+      const existingField = state.previewConfig.field_config[fieldId];
+      if (!existingField) return {};
+
+      return {
+        previewConfig: {
+          ...state.previewConfig,
+          field_config: {
+            ...state.previewConfig.field_config,
+            [fieldId]: {
+              ...existingField,
+              ...updatedConfig,
+            },
+          },
+        },
+      };
+    });
+  },
+
+  removePreviewField: (fieldId) => {
+    set((state) => {
+      const { [fieldId]: _, ...remainingFields } =
+        state.previewConfig.field_config;
+      const updatedFieldOrder = state.previewConfig.field_order.filter(
+        (id) => id !== fieldId
       );
-      const updatedConfig = updatedOrder.reduce((acc, id) => {
-        acc[id] = { ...state.savedFormConfig[id] };
-        return acc;
-      }, {} as T_FormConfig);
+
       return {
-        savedFieldsOrder: [...updatedOrder],
-        savedFormConfig: { ...updatedConfig },
-      };
-    });
-  },
-  updateSavedFormConfig: (id: string, updates: FieldConfig) =>
-    set((state) => {
-      const updated = { ...state.savedFormConfig };
-      updated[id] = { ...updated[id], ...updates };
-      return { savedFormConfig: updated };
-    }),
-  updateSavedFieldsOrder: (updatedOrder: T_FieldsOrder) => {
-    set(() => ({ savedFieldsOrder: updatedOrder }));
-  },
-  syncPreview: (newOrder, newFormConfig) => {
-    set(() => {
-      return {
-        savedFieldsOrder: [...newOrder],
-        savedFormConfig: { ...newFormConfig },
+        previewConfig: {
+          ...state.previewConfig,
+          field_order: updatedFieldOrder,
+          field_config: remainingFields,
+        },
       };
     });
   },
 }));
+
+export const usePreviewConfig = () =>
+  usePreviewStore((state) => state.previewConfig);
+
+export const useSetPreviewConfig = () =>
+  usePreviewStore((state) => state.setPreviewConfig);
+
+export const useAddPreviewField = () =>
+  usePreviewStore((state) => state.addPreviewField);
+
+export const useUpdatePreviewField = () =>
+  usePreviewStore((state) => state.updatePreviewField);
+
+export const useRemovePreviewField = () =>
+  usePreviewStore((state) => state.removePreviewField);

@@ -8,7 +8,7 @@ const LazyPreviewJSX = lazy(
   () => import("../../features/jsx-output/PreviewJSX")
 );
 import { generateRHFJSX } from "@/utils/jsxGenerator";
-import { usePreviewStore } from "@/stores/PreviewStore";
+import { usePreviewStore } from "@/stores/demo/DEMO_PreviewStore";
 
 const DemoBuilder = () => {
   const savedFormConfig = usePreviewStore((state) => state.savedFormConfig);
