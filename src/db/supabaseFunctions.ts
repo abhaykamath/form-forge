@@ -96,7 +96,7 @@ export const saveFormConfig = async (form_config: T_FormConfig) => {
  * @returns {Promise<{ success: boolean }>} A success indicator.
  * @throws {Error} Throws an error if the Supabase delete operation fails.
  */
-export const deleteForm = async (form_id: string) => {
+export const deleteFormConfig = async (form_id: string) => {
   const { error } = await supabase
     .from(SAVED_FORMS_TABLE)
     .delete()
