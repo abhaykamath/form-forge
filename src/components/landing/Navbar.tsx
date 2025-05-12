@@ -1,5 +1,6 @@
 import { ThemeToggle } from "@/features/ModeToggle";
 import { Button } from "../ui/button";
+import { NavLink } from "react-router";
 
 const Navbar = () => {
   return (
@@ -18,14 +19,24 @@ const Navbar = () => {
       {/* BUTTONS */}
       <div className="flex items-center gap-2">
         <Button
-          variant="outline"
-          className="border-2 rounded-xl hidden lg:block"
+          asChild
+          variant="secondary"
+          className="border-2 rounded-xl hidden lg:flex"
         >
-          Builder - <i>coming soon !</i>
+          <NavLink to="/demo">Demo</NavLink>
         </Button>
         <Button
-          variant="outline"
-          className="border-2 rounded-xl hidden lg:block"
+          asChild
+          variant="secondary"
+          className="border-2 rounded-xl hidden lg:flex"
+        >
+          <NavLink to="/app">
+            Builder - <i>coming soon !</i>
+          </NavLink>
+        </Button>
+        <Button
+          variant="secondary"
+          className="border-2 rounded-xl hidden lg:flex"
         >
           Profile - <i>coming soon !</i>
         </Button>

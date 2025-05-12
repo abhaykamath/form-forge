@@ -1,6 +1,6 @@
 const Upcoming = () => {
   return (
-    <section className="flex flex-col justify-center items-center text-center gap-4 p-4 py-16">
+    <section className="flex flex-col justify-center items-center text-center gap-4 p-4 py-16 bg-grid">
       <h2 className="text-4xl font-bold text-primary dark:text-primary-foreground">
         What's Next?
       </h2>

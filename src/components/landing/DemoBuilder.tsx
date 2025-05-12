@@ -15,8 +15,8 @@ const DemoBuilder = () => {
   const savedFieldsOrder = usePreviewStore((state) => state.savedFieldsOrder);
 
   return (
-    <section className="py-16 px-8 xl:px-32 flex flex-col gap-16 bg-secondary">
-      <h3 className="text-center text-3xl font-extrabold text-primary dark:text-primary-foreground underline underline-offset-4">
+    <section className="py-8 px-8 xl:px-32 flex flex-col gap-6">
+      <h3 className="text-center text-3xl font-extrabold text-primary dark:text-primary-foreground">
         Form Builder - Live Demo
       </h3>
 

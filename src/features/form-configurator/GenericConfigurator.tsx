@@ -124,7 +124,9 @@ const GenericConfigurator = ({
                   setShowValidationOptions={setShowValidationOptions}
                 />
                 {showValidationOptions && (
-                  <h3 className="col-span-2 text-center text-lg py-4 font-bold">Validations</h3>
+                  <h3 className="col-span-2 text-center text-lg py-4 font-bold">
+                    Validations
+                  </h3>
                 )}
                 {/* REQUIRED */}
                 {showValidationOptions && (
@@ -279,9 +281,12 @@ const InputFields = ({
 }: InputFieldsProps) => {
   return (
     <>
+      {/* Rendering the base fields defined in configuratorMap */}
       {fields.map((Field, idx) => (
         <Field key={idx} register={register} errors={errors} />
       ))}
+
+      {/* Checkbox to toggle visibility of validation fields */}
       <div className="flex flex-col gap-2">
         <Label>Show Validations</Label>
         <Checkbox
